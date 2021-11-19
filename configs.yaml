@@ -1,0 +1,59 @@
+# MAIN SETTINGS
+iterations: 1000
+learning_rate: 0.1
+
+mesh_size: 11
+camera_distance: 5
+mesh_normalize: False
+texture_size: 100 # 0 for none
+sigmainv: 7000
+factor: 1
+
+# LOSS FUNCTION
+loss_laplacian_weight: 1000.0
+loss_normal_weight: 0.0
+loss_ael_weight: 0 
+loss_use_supervised: True
+loss_use_model: False
+do_flip: False
+
+# supervised
+loss_jointm_iou_weight: 0
+loss_iou_weight: 1.0
+loss_rgb_weight: 0 # 0.5
+loss_mask_weight: 0 # 0
+
+finetune_loss_jointm_iou_weight: 0.0
+finetune_loss_iou_weight: 1.0
+
+loss_total_variation: 1.0
+erode_renderer_mask: 0
+
+connect_frames: True
+separate_translations: True
+separate_rotations: True
+rotation_divide: 2.0
+apply_exposure_fraction: False
+number_of_pieces: 2
+number_of_terms: 2
+
+shapes:
+  - sphere
+  # - sphere_voronoi
+  # - torus_voronoi
+predict_vertices_list: 
+  # - True
+  - False
+
+input_defmo: 1
+input_frames: -1
+dataset: tbdfalling
+seq_ind: 0
+frame_inds: 
+  - 3
+  - 4
+  - 5
+
+
+write_results: False
+verbose: False
