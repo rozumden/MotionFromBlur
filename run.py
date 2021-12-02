@@ -9,7 +9,7 @@ import cv2
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input", required=False, default="./input/volleyball.avi")
+    parser.add_argument("--input", required=False, default="./input/volleyball_bounce.avi")
     parser.add_argument("--max_frames", type=int, required=False, default=3)
     parser.add_argument("--configs", required=False, default="configs.yaml")
     parser.add_argument("--subframes", type=int, required=False, default=8)
@@ -51,7 +51,8 @@ def main():
         bbox_use[2:] = np.c_[bbox_use[2:], bbox_one[2:]].max(1)
     bbox_use = extend_bbox_uniform(bbox_use.copy(),0.5*np.max(radius),Is[0].shape)
     # End data loading
-    
+    print(config)
+
     t0 = time.time()
     mfb = MotionFromBlur(config, device)
     best_model = mfb.apply(Is,Bs,bboxs,args.subframes,radius,None)

@@ -1,6 +1,6 @@
-bsub -G ls_polle -R "rusage[mem=20000, ngpus_excl_p=1, scratch=10000]"  -R "select[gpu_model0==GeForceGTX1080Ti]" -W 4:00 python run.py --input ./input/volleyball_bounce.avi --output ./output_vbounce
-bsub -G ls_polle -R "rusage[mem=20000, ngpus_excl_p=1, scratch=10000]"  -R "select[gpu_model0==GeForceGTX1080Ti]" -W 4:00 python run.py --input ./input/aerobie.avi --output ./output_aero
-bsub -G ls_polle -R "rusage[mem=20000, ngpus_excl_p=1, scratch=10000]"  -R "select[gpu_model0==GeForceGTX1080Ti]" -W 4:00 python run.py --input ./input/key.avi --max_frames 5 --output ./output_key
-bsub -G ls_polle -R "rusage[mem=20000, ngpus_excl_p=1, scratch=10000]"  -R "select[gpu_model0==GeForceGTX1080Ti]" -W 4:00 python run.py --input ./input/box.avi --max_frames 5 --output ./output_box
-bsub -G ls_polle -R "rusage[mem=20000, ngpus_excl_p=1, scratch=10000]"  -R "select[gpu_model0==GeForceGTX1080Ti]" -W 4:00 python run.py --input ./input/football.avi --max_frames 5 --output ./output_foot
-bsub -G ls_polle -R "rusage[mem=20000, ngpus_excl_p=1, scratch=10000]"  -R "select[gpu_model0==GeForceGTX1080Ti]" -W 4:00 python run.py --input ./input/volleyball.avi --max_frames 5 --output ./output_vol
+bsub -G ls_polle -R "rusage[mem=20000, ngpus_excl_p=1, scratch=10000]"  -R "select[gpu_model0==GeForceGTX1080Ti]" -W 4:00 python run.py --input ./input/volleyball_bounce.avi --output ./bsub_output_vbounce
+bsub -G ls_polle -R "rusage[mem=20000, ngpus_excl_p=1, scratch=10000]"  -R "select[gpu_model0==GeForceGTX1080Ti]" -W 4:00 python run.py --input ./input/aerobie.avi --output ./bsub_output_aero
+bsub -G ls_polle -R "rusage[mem=20000, ngpus_excl_p=1, scratch=10000]"  -R "select[gpu_model0==GeForceGTX1080Ti]" -W 4:00 python run.py --input ./input/key.avi --max_frames 5 --output ./bsub_output_key
+bsub -G ls_polle -R "rusage[mem=20000, ngpus_excl_p=1, scratch=10000]"  -R "select[gpu_model0==GeForceGTX1080Ti]" -W 4:00 python run.py --input ./input/box.avi --max_frames 5 --output ./bsub_output_box
+bsub -G ls_polle -R "rusage[mem=20000, ngpus_excl_p=1, scratch=10000]"  -R "select[gpu_model0==GeForceGTX1080Ti]" -W 4:00 python run.py --input ./input/football.avi --max_frames 5 --output ./bsub_output_foot
+bsub -G ls_polle -R "rusage[mem=20000, ngpus_excl_p=1, scratch=10000]"  -R "select[gpu_model0==GeForceGTX1080Ti]" -W 4:00 python run.py --input ./input/volleyball.avi --max_frames 5 --output ./bsub_output_vol

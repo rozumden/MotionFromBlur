@@ -30,10 +30,8 @@ class MotionFromBlur():
         self.bbox = bboxs_tight[0].copy()
         for bbox_tight in bboxs_tight:
             bbox = extend_bbox(bbox_tight.copy(),1.0*np.max(radius),g_resolution_y/g_resolution_x,Is[0].shape)
-            # bbox = bbox_tight.copy()
             self.bbox[:2] = np.c_[self.bbox[:2], bbox[:2]].min(1)
             self.bbox[2:] = np.c_[self.bbox[2:], bbox[2:]].max(1)
-        # self.bbox = extend_bbox_uniform(self.bbox.copy(),0.5*np.max(radius),Is[0].shape)
         input_batch_sfb = torch.Tensor([])
         hs_frames_sfb = torch.Tensor([])
         new_res = ((self.bbox[3]-self.bbox[1]), (self.bbox[2]-self.bbox[0]))
@@ -69,7 +67,6 @@ class MotionFromBlur():
         height = hs_frames.shape[-2]
         best_model = {}
         best_model["value"] = 100
-        preoptimization = True
         for prot in config["shapes"]: 
             if prot == 'sphere':
                 ivertices, faces, iface_features = generate_initial_mesh(config["mesh_size"])
@@ -83,9 +80,11 @@ class MotionFromBlur():
             loss_function = FMOLoss(config, ivertices, faces).to(self.device)
 
             for predict_vertices in config["predict_vertices_list"]:
+                preoptimization = True
+                config["loss_use_model"] = self.config["loss_use_model"]
                 config["erode_renderer_mask"] = self.config["erode_renderer_mask"]
                 config["predict_vertices"] = predict_vertices
-                config["loss_laplacian_weight"] = 3*self.config["loss_laplacian_weight"] # for pre-optimization
+                config["loss_laplacian_weight"] = 10*self.config["loss_laplacian_weight"] # for pre-optimization
 
                 rendering = RenderingKaolinMulti(config, faces, width, height).to(self.device)
                 encoder = EncoderMulti(config, ivertices, faces, iface_features, width, height).to(self.device)
@@ -114,13 +113,15 @@ class MotionFromBlur():
                             print(", TV {:.3f}".format((loss_tv.mean().item())), end =" ")
                         print(", joint {:.3f}".format(jloss.item()))
                     
-                    if preoptimization and (epoch >= 100 or best_model["value"] < 0.3):
+                    if preoptimization and (epoch >= 100 or model_loss < 0.3):
                         preoptimization = False
                         config["loss_use_model"] = True
                         config["erode_renderer_mask"] = 3
                     if epoch >= 300: # for finer convergence
                         config["erode_renderer_mask"] = 5
-                        config["loss_laplacian_weight"] = self.config["loss_laplacian_weight"]
+                        config["loss_laplacian_weight"] = 3*self.config["loss_laplacian_weight"]
+                        if model_loss < 0.05:
+                            config["loss_laplacian_weight"] = self.config["loss_laplacian_weight"]
                     if model_loss < best_model["value"]:
                         best_model["value"] = model_loss
                         best_model["value_joint"] = model_loss_perframe

@@ -1,11 +1,10 @@
 # MAIN SETTINGS
-iterations: 110
+iterations: 1000
 learning_rate: 0.1
 
 mesh_size: 11
 camera_distance: 5
-mesh_normalize: True
-texture_size: 100 # 0 for none
+texture_size: 100
 sigmainv: 7000
 factor: 1
 number_of_pieces: 2
@@ -31,6 +30,6 @@ shapes:
   - torus_voronoi
 predict_vertices_list: 
   - True
-  - False
+  - False 
 
 verbose: True
