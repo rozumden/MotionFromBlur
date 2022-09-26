@@ -20,7 +20,7 @@ Reference
 If you use this repository, please cite the following [publication](https://arxiv.org/abs/2111.14465):
 
 ```bibtex
-@misc{mfb,
+@inproceedings{mfb,
   title = {Motion-from-Blur: 3D Shape and Motion Estimation of Motion-blurred Objects in Videos},
   author = {Denys Rozumnyi and Martin R. Oswald and Vittorio Ferrari and Marc Pollefeys},
   booktitle = {CVPR},
